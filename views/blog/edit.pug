@@ -1,0 +1,25 @@
+extends ../layout
+
+block content
+    .container-fluid
+        .row
+            .col-lg-2
+                block aside
+            .col-lg-8
+                block section
+                    block article
+                        form(method='POST', enctype="multipart/form-data")
+                            .form-group
+                                label(for='title') Title
+                                input#title.form-control(type='text', placeholder='title', name='title', value=blog.title)
+                            .form-group
+                                label(for='content') Content
+                                textarea#content.form-control(rows='4', cols='20', name='content') #{blog.content}
+                            .form-group
+                                img(src= blog.feature, alt='anh minh hoa')
+                                input#feature(type='file', name='feature')
+                            .row
+                                .col-lg-2.col-lg-offset-4
+                                    button.btn.btn-primary(type='submit') Submit
+                                .col-lg-2
+                                    button.btn.btn-default(type='reset') Reset

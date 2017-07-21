@@ -1,0 +1,31 @@
+extends ../layout
+
+block content
+    .container-fluid
+        .row
+            .col-lg-2
+                block aside
+            .col-lg-8
+                block section
+                    block article
+                        .row
+                            .post
+                                each blog in blogList
+                                    .thumbnail.col-lg-4.col-sm-4.col-md-4
+                                        img(src= blog.feature, alt='Anh minh hoa')
+                                        .caption
+                                            h3.text-center= blog.title
+                                            p= blog.content
+                                            p
+                                                .row
+                                                    .col-lg-3
+                                                    .col-lg-2
+                                                        a.btn.btn-primary(href='/blogs/' + blog._id,role='button') READ
+                                                    .col-lg-2
+                                                        a(href='/blogs/' + blog._id + '/edit',role="button").btn.btn-warning EDIT
+                                                    .col-lg-2
+                                                        a.btn.btn-danger(href='/blogs/' + blog._id + '/delete',role='button') DELETE
+                                                    .col-lg-3
+                                    .col-lg-1
+            .col-lg-2
+                block aside

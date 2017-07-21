@@ -1,0 +1,24 @@
+extends ../layout
+
+block content
+    .container-fluid
+        .row
+            .col-lg-2
+                block aside
+            .col-lg-8
+                block section
+                    block article
+                        .row
+                        .col-sm-6
+                            .thumbnail
+                                img(src= blog.feature, alt='Anh minh hoa')
+                                .caption
+                                    h3.text-center= blog.title
+                                    p= blog.content
+                                    p
+                                        form(method='POST')
+                                            .row
+                                                .col-lg-2.col-lg-offset-4
+                                                    button.btn.btn-danger(type='submit') DELETE
+                                                .col-lg-2
+                                                    a.btn.btn-primary(href='/blogs',role='button') CANCER

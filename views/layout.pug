@@ -1,0 +1,43 @@
+html
+  head
+    title My Site - #{title}
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')
+    link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css')
+    block scripts
+        script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js')
+  body
+    .container-fluid
+        .row
+            block header
+                block nav
+                    h1.text-center  #{title}
+                    .row
+                        .col-lg-2
+                        .col-lg-8 
+                            hr
+                    .row
+                        .col-lg-4
+                        .col-lg-4
+                            ul.nav.nav-pills
+                                li.active(role='presentation')
+                                    a(href='#') Home
+                                li(role='presentation')
+                                    a(href='#') Profile
+                                li(role='presentation')
+                                    a(href='#') Messages
+                        .col-lg-4
+                            ul.nav.nav-pills
+                                li.active(role='presentation')
+                                    a(href='blogs/new') Add
+                    .row
+                        .col-lg-2
+                        .col-lg-8 
+                            hr
+    block content	
+    block foot
+        .row
+            .col-lg-2
+            .col-lg-8
+                hr
+        p.text-center &copy; 2017 lawlietblog.com
