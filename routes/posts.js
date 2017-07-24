@@ -16,7 +16,7 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage })
 
 router.route('/').get(function(req, res, next){
-		mongoose.model('Blog').find({}, function (err, blogList) {
+		mongoose.model('Post').find({}, function (err, postList) {
 			if(err){
 				res.render('error', {
 					message: 'not found', 
@@ -25,25 +25,25 @@ router.route('/').get(function(req, res, next){
 					}
 				});
 			}else{
-				res.render('blog/index', {
-                            'title': 'WORK HARD', 
-                            'blogList' : blogList
+				res.render('post/index', {
+                            title: 'WORK HARD', 
+                            postList : postList
                 });
 			}
 		});
 });
 
 router.get('/new', function(req, res) {
-    res.render('blog/new', { title: 'Add New Blog' });
+    res.render('post/new', { title: 'Add New Post' });
 })
-.post('/new', upload.single('feature'), function(req, res) {
+.post('/', upload.single('feature'), function(req, res) {
 		var title = req.body.title;
 		var content = req.body.content;
 		var feature = '/images/' + req.file.filename;
 		var created_at = Date.now();
 		var updated_at = Date.now();
 
-		mongoose.model('Blog').create({
+		mongoose.model('Post').create({
 			title : title,
 			content : content,
 			feature : feature,
@@ -58,13 +58,13 @@ router.get('/new', function(req, res) {
 					}
 				});
 			}else{
-				res.redirect('/blogs');
+				res.redirect('/blog/posts');
 			}
 		});
 });
 
 router.get('/:id/delete', function(req, res){
-	mongoose.model('Blog').findById(req.params.id, function(err, blog){
+	mongoose.model('Post').findById(req.params.id, function(err, post){
 		if(err){
 			res.render('error', {
 					message: 'not found', 
@@ -73,14 +73,14 @@ router.get('/:id/delete', function(req, res){
 					}
 			});
 		}else{
-			res.render('blog/delete', {
-				'blog': blog
+			res.render('post/delete', {
+				'post': post
 			});
 		}
 	});
 })
 .post('/:id/delete', function(req, res){
-	mongoose.model('Blog').findById(req.params.id, function(err, blog){
+	mongoose.model('Post').findById(req.params.id, function(err, post){
 		if(err){
 			res.render('error', {
 				message: 'not found', 
@@ -89,15 +89,15 @@ router.get('/:id/delete', function(req, res){
 				}
 			});
 		}else{
-			blog.remove(function(err, blog){
-				res.redirect('/blogs');
+			post.remove(function(err, blog){
+				res.redirect('/blog/posts');
 			});
 		}
 	});
 });	
 
 router.get('/:id/edit',function(req, res){
-	mongoose.model('Blog').findById(req.params.id, function(err, blog){
+	mongoose.model('Post').findById(req.params.id, function(err, post){
 		if(err){
 			res.render('error', {
 					message: 'not found', 
@@ -106,8 +106,8 @@ router.get('/:id/edit',function(req, res){
 					}
 			});
 		}else{
-			res.render('blog/edit', {
-				'blog': blog
+			res.render('post/edit', {
+				'post': post
 			});
 		}
 	});
@@ -119,7 +119,7 @@ router.get('/:id/edit',function(req, res){
 	var created_at = Date.now();
 	var updated_at = Date.now();                          
 
-	mongoose.model('Blog').findById(req.params.id, function(err, blog){
+	mongoose.model('Post').findById(req.params.id, function(err, post){
 		if(err){
 			res.render('err', {
 				message: 'not found',
@@ -128,13 +128,13 @@ router.get('/:id/edit',function(req, res){
 				}
 			})
 		}else{
-			blog.update({
+			post.update({
 				title : title,
 				content : content,
 				feature : feature,
 				created_at : created_at,
 				updated_at : updated_at
-			}, function(err, blog){
+			}, function(err, post){
 				if(err){
 					res.render('error', {
 						message: 'error editing', 
@@ -143,14 +143,14 @@ router.get('/:id/edit',function(req, res){
 						}
 					});
 				}else{
-					res.redirect('/blogs');
+					res.redirect('/blog/posts');
 				}
 			});
 		}
 	})
 });
 router.get('/:id', function(req, res){
-	mongoose.model('Blog').findById(req.params.id, function(err, blog){
+	mongoose.model('Post').findById(req.params.id, function(err, post){
 		if(err){
 			res.render('err', {
 				message: 'not found',
@@ -159,8 +159,8 @@ router.get('/:id', function(req, res){
 				}
 			})
 		}else{
-			res.render('blog/detail', {
-				'blog': blog
+			res.render('post/edit', {
+				post: post
 			});
 		}
 	});

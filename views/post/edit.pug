@@ -8,14 +8,15 @@ block content
             .col-lg-8
                 block section
                     block article
-                        form(method='POST', enctype="multipart/form-data")
+                        form(action='/blog/posts/'+ post._id + '/edit', method='POST', enctype="multipart/form-data")
                             .form-group
                                 label(for='title') Title
-                                input#title.form-control(type='text', placeholder='title', name='title')
+                                input#title.form-control(type='text', placeholder='title', name='title', value=post.title)
                             .form-group
                                 label(for='content') Content
-                                textarea#content.form-control(rows='4', cols='20', name='content')
+                                textarea#content.form-control(rows='4', cols='20', name='content') #{post.content}
                             .form-group
+                                img(src= post.feature, alt='anh minh hoa')
                                 input#feature(type='file', name='feature')
                             .row
                                 .col-lg-2.col-lg-offset-4
